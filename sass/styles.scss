@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap');
+@import 'memory-section';
+@import 'nav';
+@import 'loader';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: hsl(0, 0%, 100%);
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#finishedGame {
+  width: 100%;
+  min-height: 100vh;
+  transition: background-color 500ms ease-in-out;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+#restartContainer {
+  width: 25rem;
+  padding: 3%;
+  margin: 15rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hsl(0, 0%, 100%);
+  border: 1.5px solid hsl(0, 0%, 10%);
+  border-radius: 5px;
+}
+
+#restartButton {
+  max-width: 20rem;
+  color: hsl(0, 0%, 10%);
+  background-color: hsl(0, 0%, 100%);
+  text-align: center;
+  transform: scale(1);
+  margin: auto;
+  font-size: 1.5rem;
+  padding: 2%;
+  border: 1.5px solid hsl(0, 0%, 10%);
+  border-radius: 5px;
+  box-shadow: 5px 5px hsl(0, 0%, 10%);
+  transition: box-shadow 50ms ease-in-out, transform 50ms ease-in-out,
+    background-color 50ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 5px 10px hsl(0, 0%, 10%);
+  }
+
+  &:active {
+    background-color: darken(hsl(0, 0%, 100%), 2%);
+    transform: scale(0.98);
+    box-shadow: none;
+  }
+}
+
+#finishedGameMessage {
+  display: inline-block;
+  font-size: 3rem;
+  text-align: center;
+  padding: 1%;
+  margin: 1rem auto;
+}
+
+.won {
+  background-color: darken(hsla(128, 80%, 70%, 0.6), 5%);
+}
+
+.lost {
+  background-color: darken(hsla(0, 80%, 70%, 0.6), 5%);
+}
+
+.hidden {
+  display: none;
+}

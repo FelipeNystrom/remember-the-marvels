@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Memory game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav id="nav">
+      <div id="nameOfGame">Remember the marvels</div>
+      <div id="shuffleButton">I want to restart</div>
+    </nav>
+    <main>
+      <section id="finishedGame" class="hidden">
+        <div id="restartContainer">
+          <span id="finishedGameMessage"></span>
+          <div id="restartButton">Restart game</div>
+        </div>
+      </section>
+      <section id="loader" class="hidden">
+        <div id="loader-wrapper">
+          <div class="spinner">
+            <div class="first"></div>
+            <div class="second"></div>
+          </div>
+
+          <div class="loader-text">reshuffling</div>
+        </div>
+      </section>
+      <section id="gamePlan">
+        <div id="timerSection">
+          time to finish: <span id="timer">01:00</span
+          ><span id="indicator"> minutes</span>
+        </div>
+        <div id="memoryDeck"></div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

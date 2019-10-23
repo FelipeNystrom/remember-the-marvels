@@ -1,0 +1,74 @@
+#gamePlan {
+  width: 60%;
+  margin: auto;
+}
+
+#memoryDeck {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  perspective: 1000px;
+  margin-top: 4rem;
+}
+
+#timerSection {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+#indicator {
+  text-transform: lowercase;
+}
+
+.card {
+  width: 20%;
+  margin: 1%;
+  border: 1.5px solid hsl(0, 0%, 10%);
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  &:active {
+    transform: scale(0.97);
+    transition: transform 0.2s;
+  }
+}
+
+.card-front-img,
+.card-back-img {
+  height: auto;
+  backface-visibility: hidden;
+}
+.card-front-img {
+  width: 100%;
+  transform: rotateY(180deg);
+}
+
+.card-back-img {
+  position: absolute;
+  margin: auto 0;
+  height: 100%;
+  border-radius: 5px;
+  width: calc(100% - 1.5px);
+  background-color: hsl(255, 100%, 100%);
+}
+
+.match {
+  z-index: 1;
+  background-color: hsla(128, 80%, 70%, 0.6);
+}
+.no-match {
+  z-index: 1;
+  background-color: hsla(0, 80%, 70%, 0.6);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}

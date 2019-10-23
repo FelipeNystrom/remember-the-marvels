@@ -1,0 +1,39 @@
+#nav {
+  display: flex;
+  width: 100%;
+  background-color: hsl(358, 85%, 52%);
+  min-height: 200px;
+  border-bottom: 2px solid hsl(0, 0%, 10%);
+  padding: 0 5%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#nameOfGame {
+  color: hsl(0, 0%, 100%);
+  font-weight: 700;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+#shuffleButton {
+  width: 10rem;
+  color: hsl(0, 0%, 10%);
+  background-color: hsl(0, 0%, 100%);
+  text-align: center;
+  transform: scale(1);
+  font-size: 1.5rem;
+  padding: 2%;
+  border: 1.5px solid hsl(0, 0%, 10%);
+  border-radius: 5px;
+  transition: transform 0.2s ease-in-out, background-color 50ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    background-color: darken(hsl(0, 0%, 100%), 2%);
+    transform: scale(0.98);
+  }
+}

@@ -1,0 +1,319 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap");
+#gamePlan {
+  width: 60%;
+  margin: auto;
+}
+
+#memoryDeck {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  perspective: 1000px;
+  margin-top: 4rem;
+}
+
+#timerSection {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+#indicator {
+  text-transform: lowercase;
+}
+
+.card {
+  width: 20%;
+  margin: 1%;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+}
+.card:active {
+  transform: scale(0.97);
+  transition: transform 0.2s;
+}
+
+.card-front-img,
+.card-back-img {
+  height: auto;
+  backface-visibility: hidden;
+}
+
+.card-front-img {
+  width: 100%;
+  transform: rotateY(180deg);
+}
+
+.card-back-img {
+  position: absolute;
+  margin: auto 0;
+  height: 100%;
+  border-radius: 5px;
+  width: calc(100% - 1.5px);
+  background-color: white;
+}
+
+.match {
+  z-index: 1;
+  background-color: rgba(117, 240, 134, 0.6);
+}
+
+.no-match {
+  z-index: 1;
+  background-color: rgba(240, 117, 117, 0.6);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+#nav {
+  display: flex;
+  width: 100%;
+  background-color: #ed1d23;
+  min-height: 200px;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0 5%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#nameOfGame {
+  color: white;
+  font-weight: 700;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+#shuffleButton {
+  width: 10rem;
+  color: #1a1a1a;
+  background-color: white;
+  text-align: center;
+  transform: scale(1);
+  font-size: 1.5rem;
+  padding: 2%;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 5px;
+  transition: transform 0.2s ease-in-out, background-color 50ms ease-in-out;
+}
+#shuffleButton:hover {
+  transform: scale(1.02);
+}
+#shuffleButton:active {
+  background-color: #fafafa;
+  transform: scale(0.98);
+}
+
+#loader {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  transition: background-color 500ms ease-in-out;
+}
+
+#loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading {
+  background-color: white;
+}
+
+.loader-text {
+  color: #1a1a1a;
+  font-size: 3rem;
+  position: absolute;
+  top: 35%;
+  text-transform: uppercase;
+  z-index: 1000;
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.spinner div {
+  display: flex;
+  margin-right: 26px;
+}
+
+.spinner div::before,
+.spinner div::after {
+  display: block;
+  content: "";
+  background-color: #ed1d23;
+  border-radius: 15px;
+  height: 2rem;
+  width: 2rem;
+  transform: translateX(-20px);
+}
+
+.spinner div.first::before {
+  animation: switchdot 1s linear infinite;
+}
+
+.spinner div.first::after {
+  transform: translateX(20px);
+}
+
+.spinner div.second::before {
+  animation: switchdot 1s linear infinite -0.5s;
+}
+
+.spinner div.second::after {
+  transform: translateX(20px);
+}
+
+.first {
+  animation: turn1 1s ease-in-out infinite;
+}
+
+.second {
+  transform: rotate(180deg);
+  animation: turn2 1s ease-in-out infinite;
+}
+
+@keyframes turn1 {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@keyframes turn2 {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+@keyframes switchdot {
+  0% {
+    background-color: #1a1a1a;
+  }
+  52% {
+    background-color: #ed1d23;
+  }
+  53% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#finishedGame {
+  width: 100%;
+  min-height: 100vh;
+  transition: background-color 500ms ease-in-out;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+#restartContainer {
+  width: 25rem;
+  padding: 3%;
+  margin: 15rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 5px;
+}
+
+#restartButton {
+  max-width: 20rem;
+  color: #1a1a1a;
+  background-color: white;
+  text-align: center;
+  transform: scale(1);
+  margin: auto;
+  font-size: 1.5rem;
+  padding: 2%;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 5px;
+  box-shadow: 5px 5px #1a1a1a;
+  transition: box-shadow 50ms ease-in-out, transform 50ms ease-in-out, background-color 50ms ease-in-out;
+}
+#restartButton:hover {
+  transform: scale(1.02);
+  box-shadow: 5px 10px #1a1a1a;
+}
+#restartButton:active {
+  background-color: #fafafa;
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+#finishedGameMessage {
+  display: inline-block;
+  font-size: 3rem;
+  text-align: center;
+  padding: 1%;
+  margin: 1rem auto;
+}
+
+.won {
+  background-color: rgba(94, 237, 113, 0.6);
+}
+
+.lost {
+  background-color: rgba(237, 94, 94, 0.6);
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=styles.css.map */
