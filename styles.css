@@ -76,7 +76,7 @@
   transform: rotateY(180deg);
 }
 
-#nav {
+nav {
   display: flex;
   width: 100%;
   background-color: #ed1d23;
@@ -87,11 +87,23 @@
   align-items: center;
 }
 
+#logoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 #nameOfGame {
   color: white;
   font-weight: 700;
   font-size: 3rem;
   text-transform: uppercase;
+  border-bottom: 2px solid white;
+}
+
+#sayingOfTheGame {
+  color: white;
+  align-self: flex-end;
+  font-size: 1.1rem;
 }
 
 #shuffleButton {

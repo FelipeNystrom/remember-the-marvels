@@ -1,4 +1,4 @@
-#nav {
+nav {
   display: flex;
   width: 100%;
   background-color: hsl(358, 85%, 52%);
@@ -9,11 +9,22 @@
   align-items: center;
 }
 
+#logoContainer {
+  display: flex;
+  flex-direction: column;
+}
 #nameOfGame {
   color: hsl(0, 0%, 100%);
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 4rem;
   text-transform: uppercase;
+  border-bottom: 2px solid hsl(0, 0%, 100%);
+}
+
+#sayingOfTheGame {
+  color: hsl(0, 0%, 100%);
+  align-self: flex-end;
+  font-size: 1.1rem;
 }
 
 #shuffleButton {

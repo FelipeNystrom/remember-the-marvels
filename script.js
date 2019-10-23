@@ -134,6 +134,8 @@ function loading(loading = false) {
 }
 
 function shuffleCards() {
+  clearInterval(counter);
+  timer.innerHTML = '01:00';
   loading(true);
   setTimeout(() => {
     loading(false);
