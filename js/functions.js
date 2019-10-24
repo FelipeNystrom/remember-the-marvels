@@ -143,9 +143,11 @@ function won() {
 }
 
 export function checkCache() {
-  const playerStatus = sessionStorage.getItem('isNewPLayer');
   const storedPlayers = localStorage.getItem('players');
-  const storedPLayer = sessionStorage.getItem('currentPlayer');
+  const storedPlayer = sessionStorage.getItem('currentPlayer');
+
+  storedPlayers ? (players = storedPLayer) : null;
+  storedPlayer ? ((currentPlayer = storedPlayer), (isNewPlayer = false)) : null;
 }
 
 export function restart() {
