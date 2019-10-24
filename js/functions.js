@@ -29,17 +29,17 @@ function startCountdown() {
   counter = setInterval(() => {
     --seconds;
 
-    if (seconds === '0') {
+    timer.innerHTML = `${minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
+    if (indicator.innerHTML === ' minutes') {
+      indicator.innerHTML = ' seconds';
+    }
+
+    if (seconds === 0) {
       isStarted = false;
       timer.innerHTML = '01:00';
       indicator.innerHTML = ' minutes';
       clearInterval(counter);
       lost();
-    }
-
-    timer.innerHTML = `${minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
-    if (indicator.innerHTML === ' minutes') {
-      indicator.innerHTML = ' seconds';
     }
   }, 1000);
 }

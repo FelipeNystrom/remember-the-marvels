@@ -4,4 +4,6 @@ import { renderCards, shuffleCards, restart } from './functions.js';
 shuffleButton.addEventListener('click', shuffleCards);
 restartButton.addEventListener('click', restart);
 
-renderCards(false);
+window.addEventListener('load', () => {
+  renderCards(false);
+});
