@@ -11,6 +11,9 @@ let sessionPoint = 0;
 let isSame = false;
 let isStarted = false;
 let win = false;
+let isNewPlayer = true;
+let currentPlayer = { username: '', points: 0 };
+let players = [];
 
 function generateCard({ img, name }) {
   const backImg = './assets/svg/marvelLogo.svg';
@@ -120,13 +123,29 @@ function lost() {
 }
 
 function won() {
+  clearInterval(counter);
+
+  sessionPoint += currentPlayer.points;
+
   finishedGame.classList.remove('hidden');
   finishedGame.classList.add('won');
-  clearInterval(counter);
   timer.innerHTML = '01:00';
   finishedGameMessage.innerHTML = "Congratulations! You're a true hero!";
-
   win = true;
+
+  players = players.filter(
+    player => player.username !== currentPlayer.username
+  );
+  players = [...players, currentPlayer];
+
+  localStorage.setItem('players', players);
+  sessionStorage.setItem('currentPlayer', currentPlayer);
+}
+
+export function checkCache() {
+  const playerStatus = sessionStorage.getItem('isNewPLayer');
+  const storedPlayers = localStorage.getItem('players');
+  const storedPLayer = sessionStorage.getItem('currentPlayer');
 }
 
 export function restart() {
