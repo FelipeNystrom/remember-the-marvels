@@ -1,62 +1,7 @@
-const memoryDeck = document.querySelector('#memoryDeck');
-const shuffleButton = document.querySelector('#shuffleButton');
-const loader = document.querySelector('#loader ');
-const timer = document.querySelector('#timer');
-const indicator = document.querySelector('#indicator');
-const restartButton = document.querySelector('#restartButton');
-const finishedGame = document.querySelector('#finishedGame');
+import { memoryDeck, loader, timer, indicator } from './selectors.js';
+import marvels from './data.js';
 
-const marvels = [
-  {
-    img: './assets/svg/batman.svg',
-    name: 'batman'
-  },
-  {
-    img: './assets/svg/cyclops.svg',
-    name: 'cyclops'
-  },
-  {
-    img: './assets/svg/daredevil.svg',
-    name: 'daredevil'
-  },
-  {
-    img: './assets/svg/deadpool.svg',
-    name: 'deadpool'
-  },
-  {
-    img: './assets/svg/ironman.svg',
-    name: 'ironman'
-  },
-  {
-    img: './assets/svg/wolverine.svg',
-    name: 'wolverine'
-  },
-  {
-    img: './assets/svg/batman.svg',
-    name: 'batman'
-  },
-  {
-    img: './assets/svg/cyclops.svg',
-    name: 'cyclops'
-  },
-  {
-    img: './assets/svg/daredevil.svg',
-    name: 'daredevil'
-  },
-  {
-    img: './assets/svg/deadpool.svg',
-    name: 'deadpool'
-  },
-  {
-    img: './assets/svg/ironman.svg',
-    name: 'ironman'
-  },
-  {
-    img: './assets/svg/wolverine.svg',
-    name: 'wolverine'
-  }
-];
-
+// GLOBALS
 let cards = [];
 let counter = null;
 let firstCard = null;
@@ -64,56 +9,35 @@ let secondCard = null;
 let lockedGamePlan = false;
 let sessionPoint = 0;
 let isSame = false;
-let isShuffle = false;
 let isStarted = false;
 let win = false;
-
-function renderCards() {
-  memoryDeck.innerHTML = null;
-
-  const shuffledMarvels = [...marvels];
-  for (let i = shuffledMarvels.length - 1; i > 0; i--) {
-    const swapIndex = Math.floor(Math.random() * (i + 1));
-    const currentCard = shuffledMarvels[i];
-    const swapCard = shuffledMarvels[swapIndex];
-
-    shuffledMarvels[i] = swapCard;
-    shuffledMarvels[swapIndex] = currentCard;
-  }
-
-  shuffledMarvels.forEach(marvel => {
-    const marvelCard = generateCard(marvel);
-
-    memoryDeck.insertAdjacentHTML('beforeend', marvelCard);
-  });
-
-  cards = document.querySelectorAll('.card');
-
-  cards.forEach(card => card.addEventListener('click', flipCard));
-}
+let isNewPlayer = true;
+let currentPlayer = { username: '', points: 0 };
+let players = [];
 
 function generateCard({ img, name }) {
   const backImg = './assets/svg/marvelLogo.svg';
 
   return `
-    <div class="card" data-heroname=${name} >
-    <img class="card-back-img" src="${backImg}" alt="logo">
-    <img class="card-front-img" src="${img}" alt="${name}">
-    </div>`;
+      <div class="card" data-heroname=${name} >
+      <img class="card-back-img" src="${backImg}" alt="logo">
+      <img class="card-front-img" src="${img}" alt="${name}">
+      </div>`;
 }
 
 function startCountdown() {
-  let seconds = 60;
+  let seconds = '60';
   let minutes = '00';
 
   counter = setInterval(() => {
     --seconds;
-    timer.innerHTML = `${minutes}:${seconds}`;
+
+    timer.innerHTML = `${minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
     if (indicator.innerHTML === ' minutes') {
-      indicator.innerHTML = 'seconds';
+      indicator.innerHTML = ' seconds';
     }
 
-    if (seconds === 00) {
+    if (seconds === 0) {
       isStarted = false;
       timer.innerHTML = '01:00';
       indicator.innerHTML = ' minutes';
@@ -131,17 +55,6 @@ function loading(loading = false) {
     : loader.classList.remove('loading');
 
   loader.classList.toggle('hidden');
-}
-
-function shuffleCards() {
-  clearInterval(counter);
-  timer.innerHTML = '01:00';
-  loading(true);
-  setTimeout(() => {
-    loading(false);
-  }, 3000);
-
-  renderCards();
 }
 
 function flipCard() {
@@ -170,6 +83,7 @@ function flipCard() {
 
   isSame =
     firstCard.dataset.heroname === secondCard.dataset.heroname ? true : false;
+
   setTimeout(() => {
     if (isSame) {
       sessionPoint++;
@@ -209,16 +123,34 @@ function lost() {
 }
 
 function won() {
+  clearInterval(counter);
+
+  sessionPoint += currentPlayer.points;
+
   finishedGame.classList.remove('hidden');
   finishedGame.classList.add('won');
-  clearInterval(counter);
   timer.innerHTML = '01:00';
   finishedGameMessage.innerHTML = "Congratulations! You're a true hero!";
-
   win = true;
+
+  players = players.filter(
+    player => player.username !== currentPlayer.username
+  );
+  players = [...players, currentPlayer];
+
+  localStorage.setItem('players', players);
+  sessionStorage.setItem('currentPlayer', currentPlayer);
 }
 
-function restart() {
+export function checkCache() {
+  const storedPlayers = localStorage.getItem('players');
+  const storedPlayer = sessionStorage.getItem('currentPlayer');
+
+  storedPlayers ? (players = storedPLayer) : null;
+  storedPlayer ? ((currentPlayer = storedPlayer), (isNewPlayer = false)) : null;
+}
+
+export function restart() {
   firstCard = null;
   secondCard = null;
   isStarted = false;
@@ -231,7 +163,37 @@ function restart() {
     : finishedGame.classList.remove('lost');
 }
 
-shuffleButton.addEventListener('click', shuffleCards);
-restartButton.addEventListener('click', restart);
+export function renderCards() {
+  memoryDeck.innerHTML = null;
 
-renderCards(false);
+  const shuffledMarvels = [...marvels];
+  for (let i = shuffledMarvels.length - 1; i > 0; i--) {
+    const swapIndex = Math.floor(Math.random() * (i + 1));
+    const currentCard = shuffledMarvels[i];
+    const swapCard = shuffledMarvels[swapIndex];
+
+    shuffledMarvels[i] = swapCard;
+    shuffledMarvels[swapIndex] = currentCard;
+  }
+
+  shuffledMarvels.forEach(marvel => {
+    const marvelCard = generateCard(marvel);
+
+    memoryDeck.insertAdjacentHTML('beforeend', marvelCard);
+  });
+
+  cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => card.addEventListener('click', flipCard));
+}
+
+export function shuffleCards() {
+  clearInterval(counter);
+  timer.innerHTML = '01:00';
+  loading(true);
+  setTimeout(() => {
+    loading(false);
+  }, 3000);
+
+  renderCards();
+}
